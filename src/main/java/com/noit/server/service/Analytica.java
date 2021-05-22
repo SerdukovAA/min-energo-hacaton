@@ -1,12 +1,15 @@
 package com.noit.server.service;
 
+import java.util.Objects;
+
 public class Analytica {
 
     private String city;
     private String time;
-    private String windForce;
-    private String humidity;
-    private String cloudy;
+    private String temperature;
+    private String windspeed;
+    private String precipitation;
+    private String cloudiness;
     private String pressure;
 
     public String getCity() {
@@ -25,28 +28,36 @@ public class Analytica {
         this.time = time;
     }
 
-    public String getWindForce() {
-        return windForce;
+    public String getTemperature() {
+        return temperature;
     }
 
-    public void setWindForce(String windForce) {
-        this.windForce = windForce;
+    public void setTemperature(String temperature) {
+        this.temperature = temperature;
     }
 
-    public String getHumidity() {
-        return humidity;
+    public String getWindspeed() {
+        return windspeed;
     }
 
-    public void setHumidity(String humidity) {
-        this.humidity = humidity;
+    public void setWindspeed(String windspeed) {
+        this.windspeed = windspeed;
     }
 
-    public String getCloudy() {
-        return cloudy;
+    public String getPrecipitation() {
+        return precipitation;
     }
 
-    public void setCloudy(String cloudy) {
-        this.cloudy = cloudy;
+    public void setPrecipitation(String precipitation) {
+        this.precipitation = precipitation;
+    }
+
+    public String getCloudiness() {
+        return cloudiness;
+    }
+
+    public void setCloudiness(String cloudiness) {
+        this.cloudiness = cloudiness;
     }
 
     public String getPressure() {
@@ -57,4 +68,22 @@ public class Analytica {
         this.pressure = pressure;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Analytica analytica = (Analytica) o;
+        return Objects.equals(city, analytica.city) &&
+                Objects.equals(time, analytica.time) &&
+                Objects.equals(temperature, analytica.temperature) &&
+                Objects.equals(windspeed, analytica.windspeed) &&
+                Objects.equals(precipitation, analytica.precipitation) &&
+                Objects.equals(cloudiness, analytica.cloudiness) &&
+                Objects.equals(pressure, analytica.pressure);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(city, time, temperature, windspeed, precipitation, cloudiness, pressure);
+    }
 }
