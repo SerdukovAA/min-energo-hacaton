@@ -31,25 +31,49 @@ public class AnalyticaService {
     private final int PRESS_INDEX = 9;
 
     public Analytica get(String city) throws IOException {
+        return get(city, CURRENT_DAY, LocalTime.now(ZoneId.of("Europe/Moscow"))
+                .format(DateTimeFormatter.ofPattern("HH:mm")));
+    }
+
+    public Analytica get(String city, int day) throws IOException {
+        return get(city, day, "00:00");
+    }
+
+    public Analytica get(String city, int day, int hours) throws IOException {
+        return get(city, day,
+                LocalTime.parse(String.valueOf(hours), DateTimeFormatter.ofPattern("H"))
+                        .format(DateTimeFormatter.ofPattern("HH:mm"))
+        );
+    }
+
+    private Analytica get(String city, int day, String time) throws IOException {
+        List<Element> currentDay = getDayData(city, day);
+        List<Analytica> dayAnalytica = currentDay.stream()
+                .map(e -> mapToAnalytica(city, e))
+                .sorted(Comparator.comparing(Analytica::getTime))
+                .collect(toList());
+
+        if(time.equals("00:00")){
+            return dayAnalytica.get(0);
+        }
+        return dayAnalytica.stream()
+                .filter(a -> time.compareTo(a.getTime()) < 0)
+                .findFirst().orElse(new Analytica());
+    }
+
+    @NotNull
+    private List<Element> getDayData(String city, int day) throws IOException {
         Document document = Jsoup.connect(String.format(GEO_SERVICE_URL, city)).get();
         Element element = document.getElementById("forecast");
 
-        List<Element> currentDay = element
-                .child(CURRENT_DAY)
+        return element
+                .child(0)
                 .children()
                 .stream()
                 .filter(e -> e.hasClass("odd") || e.hasClass("even"))
+                .skip(day*8)
                 .limit(8)
                 .collect(Collectors.toList());
-
-        String now = LocalTime.now(ZoneId.of("Europe/Moscow")).format(DateTimeFormatter.ofPattern("HH:mm"));
-        List<Analytica> dayAnalytica = currentDay.stream()
-                .map(e -> mapToAnalytica(city, e))
-                .collect(toList());
-
-        return dayAnalytica.stream().sorted(Comparator.comparing(Analytica::getTime))
-                .filter(a -> now.compareTo(a.getTime()) < 0)
-                .findFirst().orElse(new Analytica());
     }
 
     @NotNull
@@ -58,7 +82,7 @@ public class AnalyticaService {
         List<Node> fields = e.childNodes()
                 .stream()
                 .filter(n ->
-                        !((Element) n).hasClass("date weekend")
+                        !((Element) n).hasClass("date")
                 )
                 .collect(Collectors.toList());
 
