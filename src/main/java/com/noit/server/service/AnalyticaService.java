@@ -12,12 +12,9 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
-import static java.util.stream.Collectors.toMap;
 
 @Service
 public class AnalyticaService {
@@ -45,11 +42,11 @@ public class AnalyticaService {
                 .collect(Collectors.toList());
 
         String now = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm"));
-        List<Analytica> dayAnalytica =  currentDay.stream()
+        List<Analytica> dayAnalytica = currentDay.stream()
                 .map(e -> mapToAnalytica(city, e))
                 .collect(toList());
 
-        return  dayAnalytica.stream().sorted(Comparator.comparing(Analytica::getTime))
+        return dayAnalytica.stream().sorted(Comparator.comparing(Analytica::getTime))
                 .filter(a -> now.compareTo(a.getTime()) < 0)
                 .findFirst().orElse(new Analytica());
     }
@@ -60,7 +57,7 @@ public class AnalyticaService {
         List<Node> fields = e.childNodes()
                 .stream()
                 .filter(n ->
-                        !((Element)n).hasClass("date weekend")
+                        !((Element) n).hasClass("date weekend")
                 )
                 .collect(Collectors.toList());
 
