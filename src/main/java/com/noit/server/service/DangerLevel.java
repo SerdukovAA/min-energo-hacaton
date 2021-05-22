@@ -9,6 +9,7 @@ public class DangerLevel {
     private BigDecimal longitude;
     private Integer level;
     private String comment;
+    private String reportUrl;
 
     public BigDecimal getLatitude() {
         return latitude;
@@ -40,6 +41,14 @@ public class DangerLevel {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public String getReportUrl() {
+        return reportUrl;
+    }
+
+    public void setReportUrl(String reportUrl) {
+        this.reportUrl = reportUrl;
     }
 
     @Override

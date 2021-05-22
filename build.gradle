@@ -16,6 +16,10 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.dizitart:potassium-nitrite:3.4.2'
     implementation 'org.jsoup:jsoup:1.13.1'
+    implementation group: 'commons-io', name: 'commons-io', version: '2.8.0'
+    implementation group: 'org.thymeleaf', name: 'thymeleaf', version: '3.0.12.RELEASE'
+    implementation group: 'org.xhtmlrenderer', name: 'flying-saucer-pdf', version: '9.1.22'
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
