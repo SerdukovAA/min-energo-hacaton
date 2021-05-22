@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.List;
@@ -41,7 +42,7 @@ public class AnalyticaService {
                 .limit(8)
                 .collect(Collectors.toList());
 
-        String now = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm"));
+        String now = LocalTime.now(ZoneId.of("Europe/Moscow")).format(DateTimeFormatter.ofPattern("HH:mm"));
         List<Analytica> dayAnalytica = currentDay.stream()
                 .map(e -> mapToAnalytica(city, e))
                 .collect(toList());
