@@ -32,17 +32,18 @@ public class AnalyticaService {
         Document document = Jsoup.connect("https://meteo.paraplan.net/en/forecast/"+city+"/").get();
         Element element = document.getElementById("forecast");
 
-        List<Element> currentAndNextFourDaysInfo = element
+        List<Element> currentDay = element
                 .child(firstTableChildAsATable)
                 .children()
                 .stream()
                 .filter(e -> e.hasClass("odd") || e.hasClass("even"))
+                .limit(8)
                 .collect(Collectors.toList());
 
-         currentAndNextFourDaysInfo.stream().limit(8);
+        Analytica analytica = new Analytica();
+        analytica.setCity(city);
 
-
-        Analytica analytica = new Analytica()
+        return analytica;
     }
 
 
