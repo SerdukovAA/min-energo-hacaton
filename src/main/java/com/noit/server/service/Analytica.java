@@ -2,29 +2,12 @@ package com.noit.server.service;
 
 public class Analytica {
 
-    public Analytica(String region, String city, Integer windForce, Double humidity, Double cloudy, Double pressure) {
-        this.region = region;
-        this.city = city;
-        this.windForce = windForce;
-        this.humidity = humidity;
-        this.cloudy = cloudy;
-        this.pressure = pressure;
-    }
-
-    private String region;
     private String city;
-    private Integer windForce;
-    private Double humidity;
-    private Double cloudy;
-    private Double pressure;
-
-    public String getRegion() {
-        return region;
-    }
-
-    public void setRegion(String region) {
-        this.region = region;
-    }
+    private String time;
+    private String windForce;
+    private String humidity;
+    private String cloudy;
+    private String pressure;
 
     public String getCity() {
         return city;
@@ -34,35 +17,43 @@ public class Analytica {
         this.city = city;
     }
 
-    public Integer getWindForce() {
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getWindForce() {
         return windForce;
     }
 
-    public void setWindForce(Integer windForce) {
+    public void setWindForce(String windForce) {
         this.windForce = windForce;
     }
 
-    public Double getHumidity() {
+    public String getHumidity() {
         return humidity;
     }
 
-    public void setHumidity(Double humidity) {
+    public void setHumidity(String humidity) {
         this.humidity = humidity;
     }
 
-    public Double getCloudy() {
+    public String getCloudy() {
         return cloudy;
     }
 
-    public void setCloudy(Double cloudy) {
+    public void setCloudy(String cloudy) {
         this.cloudy = cloudy;
     }
 
-    public Double getPressure() {
+    public String getPressure() {
         return pressure;
     }
 
-    public void setPressure(Double pressure) {
+    public void setPressure(String pressure) {
         this.pressure = pressure;
     }
 
